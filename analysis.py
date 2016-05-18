@@ -13,18 +13,18 @@ import timeit
 WH_LVL = 210
 BL_LVL = 70
 
-WH_DIFF = 2
-GR_DIFF = 1
+WH_DIFF = 4
+GR_DIFF = 2
 
-WH_DIFF_NOISE = 2
-GR_DIFF_NOISE = 1
+#WH_DIFF_NOISE = 4
+#GR_DIFF_NOISE = 2
 
-Knorm = 6
+Knorm = 4
 
-EXP = 3
+EXP = 2
 CEIL = 0.7
 
-L_DIFF = 6/8.
+L_DIFF = 5/8.
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
@@ -39,11 +39,11 @@ def eval_coef():
     gr_coef = []
     for x in range(1,101):
         x = x/100.
-        wk = WH_DIFF*((2-x)**EXP)
+        wk = WH_DIFF*((2-x)**(EXP-x))
         #wk = ((WH_DIFF/x - (WH_DIFF - 1))**EXP) + (WH_DIFF - 1)
         wk = math.ceil(wk - CEIL)
         #gk = ((GR_DIFF/x - (GR_DIFF - 1))**EXP) + (GR_DIFF - 1)
-        gk = GR_DIFF*((2-x)**EXP)
+        gk = GR_DIFF*((2-x)**(EXP-x))
         gk = math.ceil(gk - CEIL)
         wh_coef.append(wk)
         gr_coef.append(gk)
@@ -258,9 +258,9 @@ def border_diff_alg(pic, width, height):
                 right = int(pic[(x+1) + y*width])
                 down = int(pic[x + (y+1)*width])
                 if (cur < WH_LVL) and (cur > BL_LVL):
-                    diff = GR_DIFF_NOISE
+                    diff = GR_DIFF #_NOISE
                 else:
-                    diff = WH_DIFF_NOISE
+                    diff = WH_DIFF #_NOISE
                 if ((x + 2) % 8 != 0):
                     if (abs(cur - right) >= diff):
                         block_matrix[b_index][0] += 1

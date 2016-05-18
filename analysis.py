@@ -13,15 +13,15 @@ import timeit
 WH_LVL = 210
 BL_LVL = 70
 
-WH_DIFF = 4
+WH_DIFF = 2
 GR_DIFF = 1
 
 WH_DIFF_NOISE = 2
 GR_DIFF_NOISE = 1
 
-Knorm = 4
+Knorm = 6
 
-EXP = 2
+EXP = 3
 CEIL = 0.7
 
 L_DIFF = 6/8.
@@ -370,7 +370,7 @@ def main(path, pics):
                 x = int(i % wb)*8
                 y = int(i / wb)*8
                 draw = ImageDraw.Draw(img)
-                draw.rectangle([x, y, x+7, y+7], fill=None, outline=(0x00, 0xff, 0x00))
+                #draw.rectangle([x, y, x+7, y+7], fill=None, outline=(0x00, 0xff, 0x00))
                 del draw
             if len(list(filter(lambda x: x >= L_DIFF, borders))) >= 2: #or
                 x = int(i % wb)*8

@@ -11,18 +11,13 @@ import timeit
 
 # CONSTANTS
 WH_LVL = 210
-BL_LVL = 70
+BL_LVL = 40
 
-WH_DIFF = 4
+WH_DIFF = 6
 GR_DIFF = 2
-
-#WH_DIFF_NOISE = 4
-#GR_DIFF_NOISE = 2
-
+N = 0
 Knorm = 4
-
-EXP = 2
-CEIL = 0.7
+CEIL = 0.2
 
 L_DIFF = 5/8.
 
@@ -39,11 +34,13 @@ def eval_coef():
     gr_coef = []
     for x in range(1,101):
         x = x/100.
-        wk = WH_DIFF*((2-x)**(EXP-x))
+        wk = (1/x) + (WH_DIFF -1) + (1-x)*N
+        #wk = WH_DIFF*((2-x)**(EXP-x))
         #wk = ((WH_DIFF/x - (WH_DIFF - 1))**EXP) + (WH_DIFF - 1)
         wk = math.ceil(wk - CEIL)
+        #gk = GR_DIFF*((2-x)**(EXP-x))
         #gk = ((GR_DIFF/x - (GR_DIFF - 1))**EXP) + (GR_DIFF - 1)
-        gk = GR_DIFF*((2-x)**(EXP-x))
+        gk = (1/x) + (GR_DIFF -1) + (1-x)*N
         gk = math.ceil(gk - CEIL)
         wh_coef.append(wk)
         gr_coef.append(gk)

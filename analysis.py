@@ -13,15 +13,15 @@ import timeit
 WH_LVL = 210
 BL_LVL = 70
 
-WH_DIFF = 6
-GR_DIFF = 2
+WH_DIFF = 4
+GR_DIFF = 1
 
 WH_DIFF_NOISE = 2
 GR_DIFF_NOISE = 1
 
 Knorm = 4
 
-EXP = 0.5
+EXP = 2
 CEIL = 0.7
 
 L_DIFF = 6/8.
@@ -35,8 +35,18 @@ wh_coef = []
 gr_coef = []
 
 def eval_coef():
-    wh_coef = [math.ceil((WH_DIFF/(x/100.) - (WH_DIFF-1))**EXP - CEIL) for x in range(1, 101)]
-    gr_coef = [math.ceil((GR_DIFF/(x/100.) - (GR_DIFF-1))**EXP - CEIL) for x in range(1, 101)]
+    wh_coef = []
+    gr_coef = []
+    for x in range(1,101):
+        x = x/100.
+        wk = WH_DIFF*((2-x)**EXP)
+        #wk = ((WH_DIFF/x - (WH_DIFF - 1))**EXP) + (WH_DIFF - 1)
+        wk = math.ceil(wk - CEIL)
+        #gk = ((GR_DIFF/x - (GR_DIFF - 1))**EXP) + (GR_DIFF - 1)
+        gk = GR_DIFF*((2-x)**EXP)
+        gk = math.ceil(gk - CEIL)
+        wh_coef.append(wk)
+        gr_coef.append(gk)
     wh_coef.insert(0, wh_coef[0]+1)
     gr_coef.insert(0, gr_coef[0]+1)
     return (wh_coef, gr_coef)

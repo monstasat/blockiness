@@ -10,6 +10,8 @@ import os, sys
 import timeit
 
 # CONSTANTS
+POINTS = 20
+
 WH_LVL = 210
 BL_LVL = 40
 
@@ -32,8 +34,8 @@ gr_coef = []
 def eval_coef():
     wh_coef = []
     gr_coef = []
-    for x in range(1,101):
-        x = x/100.
+    for x in range(1,POINTS+1):
+        x = x/float(POINTS)
         wk = (1/x) + (WH_DIFF -1) + (1-x)*N
         #wk = WH_DIFF*((2-x)**(EXP-x))
         #wk = ((WH_DIFF/x - (WH_DIFF - 1))**EXP) + (WH_DIFF - 1)
@@ -46,6 +48,8 @@ def eval_coef():
         gr_coef.append(gk)
     wh_coef.insert(0, wh_coef[0]+1)
     gr_coef.insert(0, gr_coef[0]+1)
+    print("wh_coef:", wh_coef)
+    print("gr_coef:", gr_coef)
     return (wh_coef, gr_coef)
 
 def plot_noise(noise, result_path, pic):
@@ -235,9 +239,9 @@ def block_blob_alg(pic, width, height):
 
 def get_vc(x, k_noise=1.0):
     if (x < WH_LVL) and (x > BL_LVL):
-        val = gr_coef[int(k_noise*100)]
+        val = gr_coef[int(k_noise*POINTS)]
     else:
-        val = wh_coef[int(k_noise*100)]
+        val = wh_coef[int(k_noise*POINTS)]
     return val
 
 def border_diff_alg(pic, width, height):
